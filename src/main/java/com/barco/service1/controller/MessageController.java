@@ -15,7 +15,7 @@ import static com.barco.service1.config.WebsocketConfiguration.WS_TOPIC_DESTINAT
 @Controller
 public class MessageController {
 
-    private static final Logger logger = LoggerFactory.getLogger(MessageController.class);
+    private Logger logger = LoggerFactory.getLogger(MessageController.class);
 
     public static final String WS_TOPIC = WS_TOPIC_DESTINATION_PREFIX+"/messages";
     public static final String WS_TOPIC_NO_RESPONSE = WS_TOPIC_DESTINATION_PREFIX+"/messagesNoResponse";
@@ -25,7 +25,7 @@ public class MessageController {
     @MessageMapping("/api/barco/sampleEndpoint")
     public ResponseMessage processRequest(RequestMessage message) throws Exception {
         logger.info("Received new request message {}. Will respond after one second.", message);
-        return new ResponseMessage("Hello", message.getRef());
+        return new ResponseMessage("Service-1", message.getRef());
     }
 
     @Async
@@ -34,7 +34,4 @@ public class MessageController {
     public void processRequestWithoutResponse(RequestMessage message) throws Exception {
         logger.info("Received new request without responses message {}. Will respond after one second.", message);
     }
-
-
-
 }
