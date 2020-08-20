@@ -3,12 +3,11 @@ package com.barco.service1;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.web.socket.config.annotation.EnableWebSocket;
+
 
 import javax.annotation.PostConstruct;
 import java.util.TimeZone;
 
-@EnableWebSocket
 @SpringBootApplication
 @ComponentScan(basePackages = { "com.barco.*" })
 public class Service1Application {
