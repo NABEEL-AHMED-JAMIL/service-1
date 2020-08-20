@@ -2,11 +2,14 @@ package com.barco.service1.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import com.barco.model.wsm.RequestMessage;
 import com.barco.model.wsm.ResponseMessage;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 
 @Controller
@@ -17,6 +20,11 @@ public class MessageController {
     public static final String WS_TOPIC_DESTINATION_PREFIX = "/topic";
     public static final String WS_TOPIC = WS_TOPIC_DESTINATION_PREFIX+"/messages";
     public static final String WS_TOPIC_NO_RESPONSE = WS_TOPIC_DESTINATION_PREFIX+"/messagesNoResponse";
+
+    @RequestMapping(path = "/test", method = RequestMethod.POST)
+    public ResponseEntity<?> test() {
+        return ResponseEntity.ok().body("Barco-Service-1");
+    }
 
     @SendTo(WS_TOPIC)
     @MessageMapping("/sampleEndpoint")
