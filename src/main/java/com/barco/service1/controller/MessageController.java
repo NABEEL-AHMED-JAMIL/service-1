@@ -10,6 +10,7 @@ import com.barco.model.wsm.RequestMessage;
 import com.barco.model.wsm.ResponseMessage;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 
 @Controller
@@ -22,7 +23,8 @@ public class MessageController {
     public static final String WS_TOPIC_NO_RESPONSE = WS_TOPIC_DESTINATION_PREFIX+"/messagesNoResponse";
 
     @RequestMapping(path = "/test", method = RequestMethod.POST)
-    public ResponseEntity<?> test() {
+    public @ResponseBody
+    ResponseEntity<?> test() {
         return ResponseEntity.ok().body("Barco-Service-1");
     }
 
