@@ -1,7 +1,9 @@
 package com.barco.service1.controller;
 
+import com.barco.service1.task.Service1Task;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -21,6 +23,9 @@ public class MessageController {
     public static final String WS_TOPIC_DESTINATION_PREFIX = "/topic";
     public static final String WS_TOPIC = WS_TOPIC_DESTINATION_PREFIX+"/messages";
     public static final String WS_TOPIC_NO_RESPONSE = WS_TOPIC_DESTINATION_PREFIX+"/messagesNoResponse";
+
+    @Autowired
+    private Service1Task service1Task;
 
     @RequestMapping(path = "/test", method = RequestMethod.POST)
     public @ResponseBody
