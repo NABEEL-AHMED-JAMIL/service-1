@@ -1,5 +1,6 @@
 package com.barco.service1.controller;
 
+import com.barco.common.manager.async.executor.AsyncDALTaskExecutor;
 import com.barco.service1.task.Service1Task;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +27,9 @@ public class MessageController {
 
     @Autowired
     private Service1Task service1Task;
+
+    @Autowired
+    private AsyncDALTaskExecutor asyncDALTaskExecutor;
 
     @RequestMapping(path = "/test", method = RequestMethod.POST)
     public @ResponseBody
