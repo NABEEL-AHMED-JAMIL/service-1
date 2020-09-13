@@ -21,6 +21,7 @@ public class MessageController {
 
     private Logger logger = LoggerFactory.getLogger(MessageController.class);
 
+    private final String SERVICE1 = "service-1";
     public static final String WS_TOPIC_DESTINATION_PREFIX = "/topic";
     public static final String WS_TOPIC = WS_TOPIC_DESTINATION_PREFIX+"/messages";
     public static final String WS_TOPIC_NO_RESPONSE = WS_TOPIC_DESTINATION_PREFIX+"/messagesNoResponse";
