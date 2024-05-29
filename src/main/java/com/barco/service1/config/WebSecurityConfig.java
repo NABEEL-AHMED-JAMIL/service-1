@@ -35,16 +35,28 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
 
+    /**
+     * Method use to create the jwt auth filter
+     * @return AuthTokenFilter
+     **/
     @Bean
     public AuthTokenFilter authenticationJwtTokenFilter() {
         return new AuthTokenFilter();
     }
 
+    /**
+     * Method use to configure teh auth manger
+     * @param authenticationManagerBuilder
+     * */
     @Override
     public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
         authenticationManagerBuilder.userDetailsService(this.userDetailsService).passwordEncoder(passwordEncoder());
     }
 
+    /***
+     * Method use to get the auth manger
+     * @return AuthenticationManager
+     * */
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -53,6 +65,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
      * method use to encode the password
+     * @return PasswordEncoder
      * */
     @Bean
     public PasswordEncoder passwordEncoder() {

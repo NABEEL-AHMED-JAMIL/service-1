@@ -20,7 +20,6 @@ import java.util.Map;
  * @author Nabeel Ahmed
  */
 @Service
-@Transactional
 public class QueryService {
 
     private Logger logger = LoggerFactory.getLogger(QueryService.class);
@@ -36,6 +35,7 @@ public class QueryService {
      * @param queryStr
      * @return Object
      * */
+    @Transactional
     public Object deleteQuery(String queryStr) {
         logger.info("Execute Query :- " + queryStr);
         Query query = this.entityManager.createNativeQuery(queryStr);

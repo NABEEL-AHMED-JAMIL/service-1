@@ -37,6 +37,8 @@ public class StockTradeReportController implements BaseRestController {
 
     /**
      * Method use to download file
+     * @param payload
+     * @return ResponseEntity<?>
      * */
     @Override
     public ResponseEntity<?> downloadFile(ReportRequest payload) {
@@ -54,6 +56,8 @@ public class StockTradeReportController implements BaseRestController {
 
     /**
      * Method use to fetch data
+     * @param payload
+     * @return ResponseEntity<?>
      * */
     @Override
     public ResponseEntity<?> fetchData(ReportRequest payload) {
@@ -67,6 +71,8 @@ public class StockTradeReportController implements BaseRestController {
 
     /**
      * Method use to fetch first dimension
+     * @param payload
+     * @return ResponseEntity<?>
      * */
     @Override
     public ResponseEntity<?> fetchFirstDimension(ReportRequest payload) {
@@ -80,6 +86,8 @@ public class StockTradeReportController implements BaseRestController {
 
     /**
      * Method use to fetch second dimension
+     * @param payload
+     * @return ResponseEntity<?>
      * */
     @Override
     public ResponseEntity<?> fetchSecondDimension(@RequestBody ReportRequest payload) {
