@@ -25,8 +25,8 @@ import java.util.Map;
 @EnableTransactionManagement
 @EnableJpaRepositories(
     entityManagerFactoryRef = "entityManagerFactoryBean",
-    basePackages = {"com.barco.model.repository"},
-    transactionManagerRef = "firstTransactionManager"
+    transactionManagerRef = "firstTransactionManager",
+    basePackages = { "com.barco.model.repository" }
 )
 public class BatchProcessDBConfig {
 
@@ -43,7 +43,8 @@ public class BatchProcessDBConfig {
     }
 
     /**
-     *
+     * Datasource for main db
+     * @return DataSource
      * */
     @Bean(name = "firstDataSource")
     public DataSource dataSource() {
@@ -55,6 +56,10 @@ public class BatchProcessDBConfig {
         return dataSource;
     }
 
+    /**
+     * Entity manger bean for main db
+     * @return LocalContainerEntityManagerFactoryBean
+     * */
     @Bean(name = "entityManagerFactoryBean")
     public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean() {
         LocalContainerEntityManagerFactoryBean bean = new LocalContainerEntityManagerFactoryBean();
@@ -63,13 +68,17 @@ public class BatchProcessDBConfig {
         bean.setJpaVendorAdapter(adapter);
         Map<String, String> props = new HashMap<>();
         props.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
-        props.put("hibernate.show_sql", "true");
+        props.put("hibernate.show_sql", "false");
         props.put("hibernate.hbm2ddl.auto", "update");
         bean.setJpaPropertyMap(props);
         bean.setPackagesToScan("com.barco.model.pojo");
         return bean;
     }
 
+    /**
+     * Entity manger bean for main db
+     * @return PlatformTransactionManager
+     * */
     @Bean(name = "firstTransactionManager")
     public PlatformTransactionManager platformTransactionManager() {
         JpaTransactionManager transactionManager = new JpaTransactionManager();

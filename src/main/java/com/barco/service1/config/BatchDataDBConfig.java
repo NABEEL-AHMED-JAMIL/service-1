@@ -43,6 +43,10 @@ public class BatchDataDBConfig {
         this.environment = environment;
     }
 
+    /**
+     * Datasource for main db
+     * @return DataSource
+     * */
     @Primary
     @Bean(name = "secondDataSource")
     public DataSource dataSource() {
@@ -54,6 +58,10 @@ public class BatchDataDBConfig {
         return dataSource;
     }
 
+    /**
+     * Entity manger bean for main db
+     * @return LocalContainerEntityManagerFactoryBean
+     * */
     @Primary
     @Bean(name = "secondEntityManagerFactoryBean")
     public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean() {
@@ -63,13 +71,17 @@ public class BatchDataDBConfig {
         bean.setJpaVendorAdapter(adapter);
         Map<String, String> props = new HashMap<>();
         props.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
-        props.put("hibernate.show_sql", "true");
+        props.put("hibernate.show_sql", "false");
         props.put("hibernate.hbm2ddl.auto", "update");
         bean.setJpaPropertyMap(props);
         bean.setPackagesToScan("com.barco.service1.model.pojo");
         return bean;
     }
 
+    /**
+     * Entity manger bean for main db
+     * @return PlatformTransactionManager
+     * */
     @Primary
     @Bean(name = "secondTransactionManager")
     public PlatformTransactionManager platformTransactionManager() {
