@@ -1,4 +1,4 @@
-package com.barco.service1.controller;
+package com.barco.service1.controller.report;
 
 import com.barco.model.dto.report.ReportRequest;
 import org.springframework.http.ResponseEntity;

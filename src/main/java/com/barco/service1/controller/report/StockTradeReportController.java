@@ -1,4 +1,4 @@
-package com.barco.service1.controller;
+package com.barco.service1.controller.report;
 
 import com.barco.common.utility.BarcoUtil;
 import com.barco.common.utility.ExceptionUtil;
@@ -50,7 +50,7 @@ public class StockTradeReportController implements BaseRestController {
             return ResponseEntity.ok().headers(headers).body(this.stockTradeReportService.downloadFile(payload).toByteArray());
         } catch (Exception ex) {
             logger.error("An error occurred while downloadFile ", ExceptionUtil.getRootCause(ex));
-            return new ResponseEntity<>(new AppResponse(BarcoUtil.ERROR, ExceptionUtil.getRootCauseMessage(ex)), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new AppResponse(BarcoUtil.ERROR, ex.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -65,7 +65,7 @@ public class StockTradeReportController implements BaseRestController {
             return new ResponseEntity<>(this.stockTradeReportService.fetchData(payload), HttpStatus.OK);
         } catch (Exception ex) {
             logger.error("An error occurred while downloadLookupData ", ExceptionUtil.getRootCause(ex));
-            return new ResponseEntity<>(new AppResponse(BarcoUtil.ERROR, ExceptionUtil.getRootCauseMessage(ex)), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new AppResponse(BarcoUtil.ERROR, ex.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -80,7 +80,7 @@ public class StockTradeReportController implements BaseRestController {
             return new ResponseEntity<>(this.stockTradeReportService.fetchFirstDimension(payload), HttpStatus.OK);
         } catch (Exception ex) {
             logger.error("An error occurred while fetchFirstDimension ", ExceptionUtil.getRootCause(ex));
-            return new ResponseEntity<>(new AppResponse(BarcoUtil.ERROR, ExceptionUtil.getRootCauseMessage(ex)), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new AppResponse(BarcoUtil.ERROR, ex.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -95,7 +95,7 @@ public class StockTradeReportController implements BaseRestController {
             return new ResponseEntity<>(this.stockTradeReportService.fetchSecondDimension(payload), HttpStatus.OK);
         } catch (Exception ex) {
             logger.error("An error occurred while fetchSecondDimension ", ExceptionUtil.getRootCause(ex));
-            return new ResponseEntity<>(new AppResponse(BarcoUtil.ERROR, ExceptionUtil.getRootCauseMessage(ex)), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new AppResponse(BarcoUtil.ERROR, ex.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }
 
