@@ -1,11 +1,11 @@
-package com.barco.service1.controller;
+package com.barco.service1.controller.report;
 
 import com.barco.common.utility.BarcoUtil;
 import com.barco.common.utility.ExceptionUtil;
 import com.barco.common.utility.excel.ExcelUtil;
 import com.barco.model.dto.report.ReportRequest;
 import com.barco.model.dto.response.AppResponse;
-import com.barco.service1.service.PakWheelsService;
+import com.barco.service1.service.VehicleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,13 +27,13 @@ import java.util.UUID;
  */
 @RestController
 @CrossOrigin(origins="*")
-@RequestMapping(value="/pakwheels.json")
-public class PakWheelsRestController implements BaseRestController {
+@RequestMapping(value="/vehicleReport.json")
+public class VehicleRestController implements BaseRestController {
 
-    private Logger logger = LoggerFactory.getLogger(PakWheelsRestController.class);
+    private Logger logger = LoggerFactory.getLogger(VehicleRestController.class);
 
     @Autowired
-    private PakWheelsService pakWheelsService;
+    private VehicleService vehicleService;
 
     /**
      * Method use to download file
@@ -47,10 +47,10 @@ public class PakWheelsRestController implements BaseRestController {
             DateFormat dateFormat = new SimpleDateFormat(BarcoUtil.SIMPLE_DATE_PATTERN);
             String fileName = "StockTradeDownload-"+dateFormat.format(new Date())+"-"+ UUID.randomUUID() + ExcelUtil.XLSX_EXTENSION;
             headers.add(BarcoUtil.CONTENT_DISPOSITION,BarcoUtil.FILE_NAME_HEADER + fileName);
-            return ResponseEntity.ok().headers(headers).body(this.pakWheelsService.downloadFile(payload).toByteArray());
+            return ResponseEntity.ok().headers(headers).body(this.vehicleService.downloadFile(payload).toByteArray());
         } catch (Exception ex) {
             logger.error("An error occurred while downloadFile ", ExceptionUtil.getRootCause(ex));
-            return new ResponseEntity<>(new AppResponse(BarcoUtil.ERROR, ExceptionUtil.getRootCauseMessage(ex)), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new AppResponse(BarcoUtil.ERROR, ex.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -62,10 +62,10 @@ public class PakWheelsRestController implements BaseRestController {
     @Override
     public ResponseEntity<?> fetchData(ReportRequest payload) {
         try {
-            return new ResponseEntity<>(this.pakWheelsService.fetchData(payload), HttpStatus.OK);
+            return new ResponseEntity<>(this.vehicleService.fetchData(payload), HttpStatus.OK);
         } catch (Exception ex) {
             logger.error("An error occurred while downloadLookupData ", ExceptionUtil.getRootCause(ex));
-            return new ResponseEntity<>(new AppResponse(BarcoUtil.ERROR, ExceptionUtil.getRootCauseMessage(ex)), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new AppResponse(BarcoUtil.ERROR, ex.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -77,10 +77,10 @@ public class PakWheelsRestController implements BaseRestController {
     @Override
     public ResponseEntity<?> fetchFirstDimension(ReportRequest payload) {
         try {
-            return new ResponseEntity<>(this.pakWheelsService.fetchFirstDimension(payload), HttpStatus.OK);
+            return new ResponseEntity<>(this.vehicleService.fetchFirstDimension(payload), HttpStatus.OK);
         } catch (Exception ex) {
             logger.error("An error occurred while fetchFirstDimension ", ExceptionUtil.getRootCause(ex));
-            return new ResponseEntity<>(new AppResponse(BarcoUtil.ERROR, ExceptionUtil.getRootCauseMessage(ex)), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new AppResponse(BarcoUtil.ERROR, ex.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -92,10 +92,11 @@ public class PakWheelsRestController implements BaseRestController {
     @Override
     public ResponseEntity<?> fetchSecondDimension(@RequestBody ReportRequest payload) {
         try {
-            return new ResponseEntity<>(this.pakWheelsService.fetchSecondDimension(payload), HttpStatus.OK);
+            return new ResponseEntity<>(this.vehicleService.fetchSecondDimension(payload), HttpStatus.OK);
         } catch (Exception ex) {
             logger.error("An error occurred while fetchSecondDimension ", ExceptionUtil.getRootCause(ex));
-            return new ResponseEntity<>(new AppResponse(BarcoUtil.ERROR, ExceptionUtil.getRootCauseMessage(ex)), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new AppResponse(BarcoUtil.ERROR, ex.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }
+
 }
