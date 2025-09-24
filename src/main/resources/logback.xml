@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!-- Dynamic log file path: override with HOME_LOG_PATH environment variable -->
+    <property name="HOME_LOG" value="${HOME_LOG_PATH:-logs/service1.log}"/>
+
+    <!-- Dynamic hostname for log pattern -->
+    <property name="hostName" value="${HOSTNAME:-localhost}"/>
+
+    <!-- Console Appender -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %5p ${hostName} --- [%15.15t] %-40.40c{1} : %m%n%ex</pattern>
+        </layout>
+    </appender>
+
+    <!-- File Appender with Size & Time based rolling -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${HOME_LOG}</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- Archived log pattern -->
+            <fileNamePattern>logs/archived/service1.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <!-- Max size per archived file -->
+            <maxFileSize>10MB</maxFileSize>
+            <!-- Max total size of archived logs -->
+            <totalSizeCap>20GB</totalSizeCap>
+            <!-- Keep logs for 60 days -->
+            <maxHistory>60</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %5p ${hostName} --- [%15.15t] %-40.40c{1} : %m%n%ex</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Logger for your service package -->
+    <logger name="com.barco.service1" level="DEBUG" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+    </logger>
+
+    <!-- Root logger for other packages -->
+    <root level="ERROR">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+    </root>
+
+</configuration>
