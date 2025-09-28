@@ -3,7 +3,6 @@ package com.barco.service1.engine.consumer;
 import com.barco.service1.engine.BulkAction;
 import com.barco.service1.model.dto.SourceJobQueueDto;
 import com.barco.service1.model.dto.SourceTaskDto;
-import com.barco.service1.model.enums.JobStatus;
 import com.barco.service1.util.ProcessUtil;
 import com.barco.service1.util.XmlOutTagInfoUtil;
 import com.google.gson.Gson;
@@ -38,7 +37,6 @@ public class CommonConsumer {
      * */
     public Map<String, Object> fillTaskDetail(JsonObject payload) throws Exception {
         SourceJobQueueDto sourceJobQueueDto = new Gson().fromJson(payload.get(ProcessUtil.JOB_QUEUE), SourceJobQueueDto.class);
-        this.getBulkAction().changeJobStatus(sourceJobQueueDto.getJobId(), JobStatus.Start);
         Map<String, Object> taskPayloadInfo = new HashMap<>();
         taskPayloadInfo.put(ProcessUtil.JOB_QUEUE, sourceJobQueueDto);
         taskPayloadInfo.put(ProcessUtil.TASK_DETAIL, new Gson().fromJson(payload.get(ProcessUtil.TASK_DETAIL), SourceTaskDto.class));

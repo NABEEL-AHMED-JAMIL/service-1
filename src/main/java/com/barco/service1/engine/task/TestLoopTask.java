@@ -36,6 +36,7 @@ public class TestLoopTask implements Runnable {
         SourceJobQueueDto jobQueue = (SourceJobQueueDto) this.getData().get(ProcessUtil.JOB_QUEUE);
         SourceTaskDto sourceTaskDto = (SourceTaskDto) this.getData().get(ProcessUtil.TASK_DETAIL);
         try {
+            Thread.sleep(1000);
             this.consumer.getBulkAction().changeJobStatus(jobQueue.getJobId(), JobStatus.Running);
             this.consumer.getBulkAction().changeJobQueueStatus(jobQueue.getJobQueueId(), JobStatus.Running);
             this.consumer.getBulkAction().saveJobAuditLogs(jobQueue.getJobQueueId(), String.format("Job %s now in the running.", jobQueue.getJobId()));
@@ -45,6 +46,7 @@ public class TestLoopTask implements Runnable {
             for (int i=testLoop.getStart(); i<testLoop.getEnd(); i++) {
                 logger.info("Job Id {} with sub job id {} for number count :- {}.", jobQueue.getJobId(), jobQueue.getJobQueueId(), "Number Count " + i);
             }
+            Thread.sleep(1000);
             // change the status into the complete status
             this.consumer.getBulkAction().changeJobStatus(jobQueue.getJobId(), JobStatus.Completed);
             this.consumer.getBulkAction().changeJobQueueStatus(jobQueue.getJobQueueId(), JobStatus.Completed);

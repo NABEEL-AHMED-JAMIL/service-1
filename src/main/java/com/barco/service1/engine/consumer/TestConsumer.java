@@ -10,6 +10,7 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
@@ -35,7 +36,7 @@ public class TestConsumer {
      * */
     @KafkaListener(topics = "test-topic", clientIdPrefix = "string", groupId = "tpd-process",
         containerFactory = "kafkaListenerContainerFactory")
-    public void testConsumerListener(ConsumerRecord<String, String> consumerRecord, @Payload String payload) {
+    public void testConsumerListener(ConsumerRecord<String, String> consumerRecord, @Payload String payload, Acknowledgment ack) { // add acknowledgment here
         try {
             logger.info("TestConsumerListener [String] received key {}: Type [{}] | Payload: {} | Record: {}",
                 consumerRecord.key(), ProcessUtil.typeIdHeader(consumerRecord.headers()), payload, consumerRecord.toString());
@@ -43,8 +44,7 @@ public class TestConsumer {
             TestLoopTask testLoopTask = new TestLoopTask(this.consumer);
             testLoopTask.setData(this.consumer.fillTaskDetail(convertedObject));
             AsyncDALTaskExecutor.addTask(testLoopTask, convertedObject.get(ProcessUtil.PRIORITY).getAsInt());
-        } catch (InterruptedException ex) {
-            logger.error("Exception in TestConsumerListener :- {}.", ExceptionUtil.getRootCauseMessage(ex));
+            ack.acknowledge();
         } catch (Exception ex) {
             logger.error("Exception in TestConsumerListener :- {}.", ExceptionUtil.getRootCauseMessage(ex));
         }
