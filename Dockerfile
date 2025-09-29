@@ -7,7 +7,7 @@ VOLUME /tmp
 # Make port 9097 available to the world outside this container
 EXPOSE 9097
 # The application's jar file
-ARG JAR_FILE=/target/service-1-0.0.1-SNAPSHOT.jar
+ARG JAR_FILE=/target/service-1.1.0-0.jar
 # Add the application jar to the container
 ADD ${JAR_FILE} app.jar
 # Run the jar file
