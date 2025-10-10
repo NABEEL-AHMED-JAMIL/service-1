@@ -11,13 +11,13 @@ import org.springframework.stereotype.Component;
  * @author Nabeel Ahmed
  */
 @Component
-public class TruckDataConsumer {
+public class StockPriceConsumer {
 
-    public Logger logger = LogManager.getLogger(TruckDataConsumer.class);
+    public Logger logger = LogManager.getLogger(StockPriceConsumer.class);
 
     private final CommonConsumer consumer;
 
-    public TruckDataConsumer(CommonConsumer consumer) {
+    public StockPriceConsumer(CommonConsumer consumer) {
         this.consumer = consumer;
     }
 
@@ -27,8 +27,8 @@ public class TruckDataConsumer {
      * @param consumerRecord
      * @param payload
      * */
-    @KafkaListener(topics = "truck-topic", clientIdPrefix = "string", groupId = "tpd-process", containerFactory = "kafkaListenerContainerFactory")
-    public void truckConsumerListener(ConsumerRecord<String, String> consumerRecord, @Payload String payload) {
+    @KafkaListener(topics = "stp-topic", clientIdPrefix = "string", groupId = "tpd-process", containerFactory = "kafkaListenerContainerFactory")
+    public void stockPriceConsumerListener(ConsumerRecord<String, String> consumerRecord, @Payload String payload) {
 
     }
 

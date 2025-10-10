@@ -19,8 +19,6 @@ import java.util.UUID;
 
 /**
  * Kafka Consumer Configuration with low-latency and 500 record batch
- */
-/**
  * @author Nabeel Ahmed
  */
 @Configuration

@@ -34,8 +34,7 @@ public class TestConsumer {
      * @param consumerRecord
      * @param payload
      * */
-    @KafkaListener(topics = "test-topic", clientIdPrefix = "string", groupId = "tpd-process",
-        containerFactory = "kafkaListenerContainerFactory")
+    @KafkaListener(topics = "test-topic", clientIdPrefix = "string", groupId = "tpd-process", containerFactory = "kafkaListenerContainerFactory")
     public void testConsumerListener(ConsumerRecord<String, String> consumerRecord, @Payload String payload, Acknowledgment ack) { // add acknowledgment here
         try {
             logger.info("TestConsumerListener [String] received key {}: Type [{}] | Payload: {} | Record: {}",
